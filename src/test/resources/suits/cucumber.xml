@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Cross Browser Suite" parallel="none">
+<suite name="Cucumber Suite">
 
-    <listeners>
-        <listener class-name="listeners.AllureListener"/>
-    </listeners>
-
-    <test name="Chrome tests">
+    <test name="Cucumber - Chrome">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="tests.UkrnetEMailTest"/>
+            <class name="runners.cucumberRunner"/>
         </classes>
     </test>
 
-    <test name="Firefox tests">
+    <test name="Cucumber - Firefox">
         <parameter name="browser" value="firefox"/>
         <classes>
-            <class name="tests.UkrnetEMailTest"/>
+            <class name="runners.cucumberRunner"/>
         </classes>
     </test>
 
-    <test name="Edge tests">
+    <test name="Cucumber - Edge">
         <parameter name="browser" value="edge"/>
         <classes>
-            <class name="tests.UkrnetEMailTest"/>
+            <class name="runners.cucumberRunner"/>
         </classes>
     </test>
 
