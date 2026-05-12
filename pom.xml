@@ -75,9 +75,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
-                    <suiteXmlFiles>
-                        <suiteXmlFile>src/test/resources/suits/cucumber.xml</suiteXmlFile>
-                    </suiteXmlFiles>
+                    <includes>
+                        <include>**/cucumberRunner.java</include>
+                    </includes>
                 </configuration>
             </plugin>
         </plugins>

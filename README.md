@@ -1,49 +1,32 @@
 ## What Was Implemented
 
-### Singleton
+## Cucumber Implementation Details
 
-`DriverFactory` ensures only one `WebDriver` instance exists during the test run.
-A private constructor prevents external instantiation.
+# Background
 
-### Factory Method
+The Background keyword is used to define preconditions that run before every scenario, opening the browser and logging
+in.
 
-Abstract class `BrowserDriver` defines the `createDriver()` method. And each browser has its own implementation:
-`ChromeBrowserDriver`,
-`EdgeBrowserDriver`,
-`FirefoxBrowserDriver`.
+# Scenario Outline + Examples
 
-And `DriverFactory` class, in turn, delegates driver creation to these classes without knowing
-the details of each implementation.
+The draft test uses Scenario Outline with an Examples table to run the same scenario with different data sets.
 
-### Decorator
+# Dependency Injection (PicoContainer)
 
-`MailService` interface is implemented by `InboxPage` (original) and `LoggingMailService` (decorator).
-`LoggingMailService` wraps the original `MailService` object and adds logging before delegating each call to the original implementation.
+`TestContext` is shared between BaseSteps and `UkrnetEMailSteps` via PicoContainer.
 
-### S.O.L.I.D. Fixes
+## How to Run
 
-|       Class       |                             Problem                              | Principle |                              Solution                               |
-|:-----------------:|:----------------------------------------------------------------:|:---------:|:-------------------------------------------------------------------:|
-|  `DriverFactory`  |      Adding a new browser required modifying existing class      |    OCP    | Extracted browser creation into separate `BrowserDriver` subclasses |
-|    `InboxPage`    |       `fillEmailForm()` was hardcoded to `TestData` class        |    DIP    |               Data is now passed as method parameters               |
-| `AllureListener ` | Responsible for both handling test events and taking screenshots |    SRP    |     Screenshot logic moved to dedicated `ScreenshotUtils` class     |
+1. Run all tests on Chrome:
+   `mvn test -Dbrowser=chrome`
 
-## How to run
+2. Run on specific browser:
+   `mvn test -Dbrowser=firefox`
+   `mvn test -Dbrowser=edge`
 
-Default run:
-`mvn clean test`
+3. Run with specific TestNG suite:
+   `mvn test -Dsurefire.suiteXmlFiles=src/test/resources/suits/cucumber.xml`
 
-With parameters:
-`mvn clean test -Dsuite=smoke -Dbrowser=firefox -Denv=qa2`
-
-Available parameters:
-
-| Parameter |             Values              |      Default      |
-|:---------:|:-------------------------------:|:-----------------:|
-|   suite   | smoke, regression, crossBrowser | regression, smoke |
-|  browser  |      chrome, firefox, edge      |  firefox, chrome  |
-|    env    |            qa1, qa2             |        qa1        |
-
-
-Allure Report:
-`mvn allure:serve`
+4. Run specific environment config:
+   `mvn test -Denv=qa1`
+   `mvn test -Denv=qa2`

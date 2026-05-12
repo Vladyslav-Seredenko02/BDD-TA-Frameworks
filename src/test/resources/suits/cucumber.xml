@@ -2,6 +2,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Cucumber Suite">
 
+    <listeners>
+        <listener class-name="listeners.BrowserParameterListener"/>
+    </listeners>
+
     <test name="Cucumber - Chrome">
         <parameter name="browser" value="chrome"/>
         <classes>
